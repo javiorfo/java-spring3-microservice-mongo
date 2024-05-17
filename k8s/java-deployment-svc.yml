@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-spring3-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-spring3-microservice
+  template:
+    metadata:
+      labels:
+        app: java-spring3-microservice
+    spec:
+      containers:
+      - name: java-spring3-microservice
+        image: java-spring3-microservice:0.1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+          - name: DB_HOST
+            value: postgresql
+          - name: DB_NAME
+            value: db_dummy
+          - name: DB_USER
+            value: admin
+          - name: DB_PASSWORD
+            value: admin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-spring3-microservice-svc
+spec:
+  selector:
+    app: java-spring3-microservice
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort
+

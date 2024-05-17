@@ -1,0 +1,17 @@
+
+~[BASE]~
+url http://localhost:8081/realms/orfosys/protocol/openid-connect/token
+method POST
+
+~[HEADERS]~
+accept application/json
+content-type application/x-www-form-urlencoded
+
+~[BODY]~
+grant_type password
+client_id java-spring3-microservice
+client_secret RqaTlO0d2OnBbeRuImNnbLWm5yZL66Mo
+username javi
+password javi
+
+

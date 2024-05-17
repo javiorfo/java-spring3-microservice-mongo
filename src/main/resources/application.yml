@@ -1,0 +1,64 @@
+spring:
+  application.name: java-spring3-microservice
+  threads.virtual.enabled: true
+  data:
+    mongodb:
+      host: ${MONGO_HOST:localhost}
+      port: ${MONGO_PORT:27017}
+      database: ${MONGO_DB_NAME:db_dummy}
+      username: ${MONGO_USERNAME:admin}
+      password: ${MONGO_PASSWORD:admin}
+      authentication-database: admin
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_HOST:http://localhost:8081}/realms/orfosys
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+  devtools.restart.enabled: false
+
+springdoc:
+  api-docs:
+    enabled: ${SWAGGER_ENABLED:true}
+  swagger-ui:
+    enabled: ${SWAGGER_ENABLED:true}
+    oauth:
+      client-id: ${spring.application.name}
+      client-secret: ${KEYCLOAK_CLIENT_SECRET}
+#     path: /swagger-ui/index.html
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+server.servlet.context-path: /orfosys
+
+tracing.url: ${TRACING_HOST:http://localhost:4318}/v1/traces
+
+management:
+  endpoints.web.exposure.include: health,env,metrics
+  tracing.sampling.probability: 1.0
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:}, traceID=%X{traceId:-}, spanID=%X{spanId:-}]"
+
+logstash.destination: ${LOGSTASH_HOST:localhost:5000}
+
+---
+
+# Use this profile with "gradle bootRunDev"
+spring:
+  config.activate.on-profile: dev
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: db_dummy
+      username: admin
+      password: admin
+      authentication-database: admin
+  devtools.restart.enabled: true
+
+springdoc:
+  swagger-ui:
+    oauth:
+      client-secret: ${KEYCLOAK_CLIENT_SECRET:RqaTlO0d2OnBbeRuImNnbLWm5yZL66Mo}
