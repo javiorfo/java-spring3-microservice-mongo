@@ -14,7 +14,6 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MongoDBContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Optional;
 
 import com.javi.adapter.out.mappers.DummyMapper;
-import com.javi.common.pagination.Page;
 import com.javi.domain.model.Dummy;
+import com.javi.pagination.Page;
 
 @Testcontainers
 @DataMongoTest
@@ -32,8 +31,11 @@ import com.javi.domain.model.Dummy;
 @Import({ DummyPersistenceAdapter.class, DummyMapper.class })
 public class DummyPersistenceTest {
 
-    @Container
-    private static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:latest");
+    static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:latest");
+
+    static {
+        mongoDBContainer.start();
+    }
 
     @DynamicPropertySource
     public static void setProperties(DynamicPropertyRegistry registry) {

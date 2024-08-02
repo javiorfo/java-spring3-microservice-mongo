@@ -7,7 +7,7 @@ Clean architecture, Java 21, Spring Boot 3, MongoDB, distributed tracing, log ce
 Java 21, Docker, Maven
 
 ## Features
-- Hexagonal Architecture
+- Clean Architecture
     - Exception Controller
     - Custom Messages and Exceptions
     - Pagination and Ordering
@@ -41,6 +41,7 @@ Java 21, Docker, Maven
 
 ## Usage
 - Create the containers executing `./containers.sh` 
+- Download and compile [this library](https://github.com/javiorfo/java-spring3-microservice-lib)
 - Start the application with the command `mvn spring-boot:run -Pdev`
 - To delete all the containers: `./containers.sh d`
 

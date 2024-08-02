@@ -1,6 +1,8 @@
 spring:
   application.name: java-spring3-microservice
   threads.virtual.enabled: true
+  main:
+    allow-bean-definition-overriding: true
   data:
     mongodb:
       host: ${MONGO_HOST:localhost}
@@ -9,6 +11,9 @@ spring:
       username: ${MONGO_USERNAME:admin}
       password: ${MONGO_PASSWORD:admin}
       authentication-database: admin
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   security:
     oauth2:
       resourceserver:
@@ -45,7 +50,6 @@ logstash.destination: ${LOGSTASH_HOST:http://localhost:5000}
 
 ---
 
-# Use this profile with "gradle bootRunDev"
 spring:
   config.activate.on-profile: dev
   data:
@@ -56,6 +60,9 @@ spring:
       username: admin
       password: admin
       authentication-database: admin
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   devtools.restart.enabled: true
 
 springdoc:
