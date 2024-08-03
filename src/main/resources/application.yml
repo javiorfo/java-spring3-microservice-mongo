@@ -1,6 +1,8 @@
 spring:
   application.name: java-spring3-microservice
   threads.virtual.enabled: true
+  auditory:
+    mongo: true
   data:
     mongodb:
       host: ${MONGO_HOST:localhost}
@@ -50,8 +52,6 @@ logstash.destination: ${LOGSTASH_HOST:http://localhost:5000}
 
 spring:
   config.activate.on-profile: dev
-  auditory:
-    mongo: true
   data:
     mongodb:
       host: localhost
